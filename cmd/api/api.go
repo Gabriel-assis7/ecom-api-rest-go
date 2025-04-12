@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/gabriel-assis7/ecom-api-rest-go/service/user"
 	"github.com/gorilla/mux"
 )
 
@@ -22,7 +23,10 @@ func NewApiServer(addr string, db *sql.DB) *APIServer {
 
 func (s *APIServer) Start() error {
 	router := mux.NewRouter()
-	subrouter := router.PathPrefix("/api").Subrouter()
+	subrouter := router.PathPrefix("/api/v1").Subrouter()
+
+	userService := user.NewHandler()
+	userService.RegisterRoutes(subrouter)
 
 	log.Println("Starting server on", s.addr)
 
