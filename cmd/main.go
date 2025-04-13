@@ -14,10 +14,10 @@ func main() {
 		log.Fatalf("Could not load .env file: %v", err)
 	}
 
-	connStr := os.Getenv("DATABASE_URL")
+	dbUrl := os.Getenv("DATABASE_URL")
 	driver := "postgres"
 
-	db, err := db.NewSqlStorage(driver, connStr)
+	db, err := db.NewSqlStorage(driver, dbUrl)
 	if err != nil {
 		log.Fatalf("Db error: %v", err)
 	}
