@@ -26,7 +26,7 @@ func main() {
 
 	log.Println("Successfully connected to the database")
 
-	server := api.NewApiServer(":8080", nil)
+	server := api.NewApiServer(":8080", db)
 	if err := server.Start(); err != nil {
 		log.Fatalf("Error starting server: %v", err)
 	}

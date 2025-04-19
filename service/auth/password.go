@@ -1,6 +1,8 @@
 package auth
 
 import (
+	"fmt"
+
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -12,7 +14,10 @@ func HashPassword(password string) (string, error) {
 	return string(bytes), nil
 }
 
-func CheckPasswordHash(password, hash string) bool {
+func CheckPasswordHash(password, hash string) error {
 	err := bcrypt.CompareHashAndPassword([]byte(hash), []byte(password))
-	return err == nil
+	if err != nil {
+		return fmt.Errorf("invalid credentials: %v", err)
+	}
+	return nil
 }
